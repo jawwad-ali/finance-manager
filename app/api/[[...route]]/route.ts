@@ -13,22 +13,30 @@ const appSchema = z.object({
 
 const app = new Hono().basePath('/api')
 
-// GET REQUEST WITH THE clerkMiddleware(). clerkMiddleware is the middleware checks if the user is signedIn 
+// Define a route for the root URL with GET method
 app
-    .get('/', clerkMiddleware(), (c) => {
-        const auth = getAuth(c)
+    .get('/', 
+        // Middleware for authentication
+        clerkMiddleware(), 
+        (c) => {
+            // Retrieve authentication information from the request context
+            const auth = getAuth(c);
 
-        if (!auth?.userId) {
-            return c.json({
-                error: "Unauthorized"
-            })
+            // Check if the user is authenticated
+            if (!auth?.userId) {
+                // Respond with an error if the user is not authenticated
+                return c.json({
+                    error: "Unauthorized"
+                });
+            }
+            // Respond with a welcome message and the authenticated user's ID
+            return c.json({ 
+                message: 'Hello HonoJS!', 
+                userId: auth?.userId 
+            });
         }
-        return c.json({ message: 'Hello HonoJS!', userId: auth?.userId })
-    })
+    );
 
-// Dynamic Routes
-
-export const GET = handle(app)
-export const POST = handle(app)
+export const GET = handle(app);
 
 // 1.10.50
