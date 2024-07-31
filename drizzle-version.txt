@@ -1,0 +1,5 @@
+0.20.17
+
+    // "db:generate": "drizzle-kit generate:pg --schema db/schema.ts --out ./drizzle",
+    // "db:migrate": "tsx ./script/migrate.ts",
+    // "db:studio": "drizzle-kit studio"
