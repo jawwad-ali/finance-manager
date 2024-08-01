@@ -1,4 +1,4 @@
-## Tech Stack
+# Tech Stack
 ## FrontEnd
 <ul>
     <li>Next.js 14</li>
