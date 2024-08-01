@@ -1,4 +1,4 @@
-import { pgTable, PgTable, serial, text } from "drizzle-orm/pg-core";
+import { pgTable, text } from "drizzle-orm/pg-core";
 
 // Account Schema
 export const accounts = pgTable("accounts", {
@@ -7,5 +7,3 @@ export const accounts = pgTable("accounts", {
     userId: text("user_id").notNull(),
     plaidId: text("plaid_id").notNull(),
 });
-
-// 2.10.50

@@ -1,42 +1,24 @@
 import { Hono } from "hono";
 import { handle } from "hono/vercel"
-import { z } from "zod"
-import { zValidator } from "@hono/zod-validator";
 
-import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
+import accounts from "./accounts";
+import { HTTPException } from "hono/http-exception";
 
 export const runtime = 'edge'
-
-const appSchema = z.object({
-    test: z.string(),
-})
-
 const app = new Hono().basePath('/api')
 
-// Define a route for the root URL with GET method
-app
-    .get('/', 
-        // Middleware for authentication
-        clerkMiddleware(), 
-        (c) => {
-            // Retrieve authentication information from the request context
-            const auth = getAuth(c);
+app.onError((err, c) => {
+    if (err instanceof HTTPException) {
+        return err.getResponse()
+    }
+    return c.json("Internal Error", 500)
+})
 
-            // Check if the user is authenticated
-            if (!auth?.userId) {
-                // Respond with an error if the user is not authenticated
-                return c.json({
-                    error: "Unauthorized"
-                });
-            }
-            // Respond with a welcome message and the authenticated user's ID
-            return c.json({ 
-                message: 'Hello HonoJS!', 
-                userId: auth?.userId 
-            });
-        }
-    );
+// Declaring Routes 
+const routes = app
+    .route("/accounts", accounts)
 
 export const GET = handle(app);
 
-// 1.10.50
+// Generating RPC types
+export type AppType = typeof routes;
