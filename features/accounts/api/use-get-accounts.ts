@@ -3,9 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { client } from "@/lib/hono"
 
 export const useGetAccounts = () => {
-    const query = useQuery({
+    const query = useQuery({ 
         queryKey: ['accounts'],
-        queryFn: async () => {
+        queryFn: async () => { 
             const res = await client.api.accounts.$get()
 
             //Handling Error 

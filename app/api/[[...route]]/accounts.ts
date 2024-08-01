@@ -6,10 +6,11 @@ import { clerkMiddleware, getAuth } from "@hono/clerk-auth"
 import { eq } from "drizzle-orm"
 
 const app = new Hono()
-    .get(
-        "/",
+    .get( 
+        "/", 
         clerkMiddleware(),
         async (c) => {
+            // Get current user info
             const auth = getAuth(c)
 
             // Handling Error
@@ -19,7 +20,7 @@ const app = new Hono()
                 })
             }
 
-            // Fetching accounts from db
+            // Fetching accounts from db through drizzle
             const data = await db
                 .select({
                     id: accounts.id,
