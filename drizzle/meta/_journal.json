@@ -15,6 +15,13 @@
       "when": 1722436369544,
       "tag": "0001_safe_thundra",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1722638817837,
+      "tag": "0002_black_jack_flag",
+      "breakpoints": true
     }
   ]
 }

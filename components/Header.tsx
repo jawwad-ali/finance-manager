@@ -16,7 +16,7 @@ const Header = () => {
           <div>
             <ClerkLoaded>
               <UserButton />
-            </ClerkLoaded>
+            </ClerkLoaded> 
 
             <ClerkLoading>
               <Loader2 className="size-8 animate-spin" />
