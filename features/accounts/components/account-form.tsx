@@ -79,5 +79,3 @@ const AccountForm = ({ id, defaultValues, onSubmit, onDelete, disabled }: Props)
 }
 
 export default AccountForm
-
-// 3.29.04
