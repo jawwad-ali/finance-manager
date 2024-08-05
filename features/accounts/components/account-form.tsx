@@ -20,7 +20,7 @@ type Props = {
 }
 
 const AccountForm = ({ id, defaultValues, onSubmit, onDelete, disabled }: Props) => {
-    const form = useForm<FormValues>({
+    const form = useForm<FormValues>({ 
         resolver: zodResolver(formSchema),
         defaultValues: defaultValues
     })
