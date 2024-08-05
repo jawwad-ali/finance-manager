@@ -2,13 +2,14 @@ import { db } from "@/db/drizzle"
 import { accounts, insertAccountsSchema } from "@/db/schema"
 import { Hono } from "hono"
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth"
-import { eq } from "drizzle-orm"
+import { and, eq, inArray } from "drizzle-orm"
 import { zValidator } from "@hono/zod-validator"
 import { createId } from '@paralleldrive/cuid2';
+import { z } from "zod"
 
 const app = new Hono()
     .get(
-        "/",
+        "/", 
         clerkMiddleware(),
         async (c) => {
             // Get current user info
@@ -56,13 +57,45 @@ const app = new Hono()
             const [data] = await db
                 .insert(accounts)
                 .values({
-                    id: createId(), 
+                    id: createId(),
                     userId: auth.userId,
                     ...values,
                 })
                 .returning()
 
             return c.json({ data: data })
+        }
+    )
+
+    .post(
+        "/bulk-delete",
+        clerkMiddleware(),
+        zValidator("json",
+            z.object({
+                ids: z.array(z.string())
+            })
+        ),
+        async (c) => {
+            const auth = getAuth(c)
+            const values = c.req.valid("json")
+
+            if (!auth?.userId) {
+                return c.json({
+                    error: "Unathorized"
+                }, 401)
+            }
+
+            const deleted = await db
+                .delete(accounts)
+                .where(
+                    and(
+                        eq(accounts.userId, auth.userId),
+                        inArray(accounts.id, values.ids)
+                    )
+                ).returning({
+                    id: accounts.id
+                })
+            return c.json({ data: `${deleted} deleted` })
         }
     )
 

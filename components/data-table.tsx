@@ -74,9 +74,15 @@ export function DataTable<TData, TValue>({
                     }
                     className="max-w-sm"
                 />
+                {/* Delete Button if a certain row is selected */}
                 {table.getFilteredSelectedRowModel().rows.length > 0 && (
-                    <Button disabled={disabled} size="sm" variant={"outline"} className="ml-auto font-normal text-xs">
-                        <Trash className="size-4 mr-2" />
+                    <Button disabled={disabled} size="sm" variant={"outline"} className="ml-auto font-normal text-xs"
+                        onClick={() => { 
+                            onDelete(table.getFilteredSelectedRowModel().rows)
+                            table.resetRowSelection()
+                        }}>
+                        <Trash className="size-4 mr-2"
+                        />
                         Delete ({table.getFilteredSelectedRowModel().rows.length})
                     </Button>
                 )}
@@ -127,10 +133,12 @@ export function DataTable<TData, TValue>({
             </div>
 
             <div className="flex items-center justify-end space-x-2 py-4">
+                {/* Numbers of Row Selected */}
                 <div className="flex-1 text-sm text-muted-foreground">
                     {table.getFilteredSelectedRowModel().rows.length} of{" "}
                     {table.getFilteredRowModel().rows.length} row(s) selected.
                 </div>
+                {/* Pagination Buttons */}
                 <Button
                     variant="outline"
                     size="sm"

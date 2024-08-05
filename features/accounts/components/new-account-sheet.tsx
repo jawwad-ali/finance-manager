@@ -3,7 +3,7 @@ import { insertAccountsSchema } from "@/db/schema"
 import AccountForm from "@/features/accounts/components/account-form"
 import { useNewAccount } from "@/features/accounts/hooks/use-new-account"
 import { z } from "zod"
-import { useCreateAccount } from "../hooks/use-create-account"
+import { useCreateAccount } from "../api/use-create-account"
 
 const formSchema = insertAccountsSchema.pick({
     name: true
