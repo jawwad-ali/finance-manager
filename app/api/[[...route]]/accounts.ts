@@ -9,7 +9,7 @@ import { z } from "zod"
 
 const app = new Hono()
     .get(
-        "/", 
+        "/",
         clerkMiddleware(),
         async (c) => {
             // Get current user info
@@ -33,7 +33,6 @@ const app = new Hono()
 
             return c.json({ data })
         })
-
 
     .post(
         "/",
@@ -67,6 +66,7 @@ const app = new Hono()
         }
     )
 
+    // bulk-delete
     .post(
         "/bulk-delete",
         clerkMiddleware(),

@@ -22,6 +22,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
+import UseConfirm from "@/hooks/use-confirm"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { Trash } from "lucide-react"
@@ -46,6 +47,9 @@ export function DataTable<TData, TValue>({
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [rowSelection, setRowSelection] = useState({})
 
+    // ConFirmation
+    const [ConfirmationDialog, confirm] = UseConfirm("Are you sure?", "You are about to perform bulk delete")
+
     const table = useReactTable({
         data,
         columns,
@@ -65,6 +69,8 @@ export function DataTable<TData, TValue>({
 
     return (
         <div>
+            <ConfirmationDialog />
+
             <div className="flex items-center py-4">
                 <Input
                     placeholder={`Filter ${filterKey}...`}
@@ -77,9 +83,13 @@ export function DataTable<TData, TValue>({
                 {/* Delete Button if a certain row is selected */}
                 {table.getFilteredSelectedRowModel().rows.length > 0 && (
                     <Button disabled={disabled} size="sm" variant={"outline"} className="ml-auto font-normal text-xs"
-                        onClick={() => { 
-                            onDelete(table.getFilteredSelectedRowModel().rows)
-                            table.resetRowSelection()
+                        onClick={async () => {
+                            const ok = await confirm()
+
+                            if (ok) {
+                                onDelete(table.getFilteredSelectedRowModel().rows)
+                                table.resetRowSelection()
+                            }
                         }}>
                         <Trash className="size-4 mr-2"
                         />
