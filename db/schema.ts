@@ -5,9 +5,20 @@ import { createInsertSchema } from 'drizzle-zod';
 export const accounts = pgTable("accounts", {
     id: text("id").primaryKey(),
     name: text("name").notNull(),
-    userId: text("user_id").notNull(),  
-    plaidId: text("plaid_id"), 
+    userId: text("user_id").notNull(),
+    plaidId: text("plaid_id"),
 });
 
 // Create a schema to validate insert operations for 'accounts' table
 export const insertAccountsSchema = createInsertSchema(accounts)
+
+// Categories Schema
+export const categories = pgTable("categories", {
+    id: text("id").primaryKey(),
+    name: text("name").notNull(),
+    userId: text("user_id").notNull(),
+    plaidId: text("plaid_id"),
+});
+
+// Create a schema to validate insert operations for 'categories' table
+export const insertCategorySchema = createInsertSchema(categories)

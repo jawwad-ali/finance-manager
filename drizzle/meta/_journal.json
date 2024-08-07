@@ -22,6 +22,13 @@
       "when": 1722638817837,
       "tag": "0002_black_jack_flag",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1722976710584,
+      "tag": "0003_smart_garia",
+      "breakpoints": true
     }
   ]
 }
