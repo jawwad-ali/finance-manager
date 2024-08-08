@@ -10,8 +10,16 @@ import {
     ColumnFiltersState,
     getFilteredRowModel,
     SortingState,
-    Row
+    Row,
+    VisibilityState,
 } from "@tanstack/react-table"
+
+import {
+    DropdownMenu,
+    DropdownMenuCheckboxItem,
+    DropdownMenuContent,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 import {
     Table,
@@ -25,7 +33,7 @@ import { Button } from "@/components/ui/button"
 import UseConfirm from "@/hooks/use-confirm"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
-import { Trash } from "lucide-react"
+import { ArrowBigDown, ChevronDown, Trash } from "lucide-react"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -46,6 +54,7 @@ export function DataTable<TData, TValue>({
     const [sorting, setSorting] = useState<SortingState>([])
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [rowSelection, setRowSelection] = useState({})
+    const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 
     // ConFirmation
     const [ConfirmationDialog, confirm] = UseConfirm("Are you sure?", "You are about to perform bulk delete")
@@ -60,10 +69,13 @@ export function DataTable<TData, TValue>({
         onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
         onRowSelectionChange: setRowSelection,
+        onColumnVisibilityChange: setColumnVisibility,
+
         state: {
             sorting,
             columnFilters,
             rowSelection,
+            columnVisibility,
         },
     })
 
@@ -80,6 +92,38 @@ export function DataTable<TData, TValue>({
                     }
                     className="max-w-sm"
                 />
+
+
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="outline" className="ml-auto">
+                            <ChevronDown className="size-4 mr-2" />
+                            Columns
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        {table
+                            .getAllColumns()
+                            .filter(
+                                (column) => column.getCanHide()
+                            )
+                            .map((column) => {
+                                return (
+                                    <DropdownMenuCheckboxItem
+                                        key={column.id}
+                                        className="capitalize"
+                                        checked={column.getIsVisible()}
+                                        onCheckedChange={(value) =>
+                                            column.toggleVisibility(!!value)
+                                        }
+                                    >
+                                        {column.id}
+                                    </DropdownMenuCheckboxItem>
+                                )
+                            })}
+                    </DropdownMenuContent>
+                </DropdownMenu>
+
                 {/* Delete Button if a certain row is selected */}
                 {table.getFilteredSelectedRowModel().rows.length > 0 && (
                     <Button disabled={disabled} size="sm" variant={"outline"} className="ml-auto font-normal text-xs"
