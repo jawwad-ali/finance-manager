@@ -29,6 +29,13 @@
       "when": 1722976710584,
       "tag": "0003_smart_garia",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1723122171324,
+      "tag": "0004_sour_living_lightning",
+      "breakpoints": true
     }
   ]
 }
