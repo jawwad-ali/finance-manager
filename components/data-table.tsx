@@ -81,9 +81,11 @@ export function DataTable<TData, TValue>({
 
     return (
         <div>
+            {/* Confirmation Dialog box */}
             <ConfirmationDialog />
 
-            <div className="flex items-center py-4">
+            <div className="lg:flex items-center py-4">
+                {/* Search Bar */}
                 <Input
                     placeholder={`Filter ${filterKey}...`}
                     value={(table.getColumn(`${filterKey}`)?.getFilterValue() as string) ?? ""}
@@ -93,10 +95,10 @@ export function DataTable<TData, TValue>({
                     className="max-w-sm"
                 />
 
-
-                <DropdownMenu>
+                {/* Visibility Buttons */}
+                <DropdownMenu >
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto">
+                        <Button variant="outline" className="ml-auto w-full lg:w-auto mt-2 lg:mt-0">
                             <ChevronDown className="size-4 mr-2" />
                             Columns
                         </Button>
