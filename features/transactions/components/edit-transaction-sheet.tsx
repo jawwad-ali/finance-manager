@@ -6,8 +6,8 @@ import AccountForm from "@/features/accounts/components/account-form"
 import { useOpenAccount } from "@/features/accounts/hooks/use-open-account"
 import { useGetAccount } from "@/features/accounts/api/use-get-account"
 import { Loader2 } from "lucide-react"
-import { useEditAccount } from "../api/use-edit-account"
-import { useDeleteAccount } from "../api/use-delete-account"
+import { useEditTransaction } from "../api/use-edit-transaction"
+import { useDeleteTransaction } from "../api/use-delete-transaction"
 import UseConfirm from "@/hooks/use-confirm"
 
 const formSchema = insertAccountsSchema.pick({
@@ -16,13 +16,13 @@ const formSchema = insertAccountsSchema.pick({
 
 type FormValues = z.input<typeof formSchema>
 
-export const EditAccountSheet = () => {
+export const EditTransactionSheet = () => {
     const { isOpen, onClose, id } = useOpenAccount()
     const [ConfirmationDialog, confirm] = UseConfirm("Are you sure?", "You are about to delete")
 
     const accountQuery = useGetAccount(id)
-    const updateMutation = useEditAccount(id)
-    const deleteMutation = useDeleteAccount(id)
+    const updateMutation = useEditTransaction(id)
+    const deleteMutation = useDeleteTransaction(id)
 
     // Gook To Add new Account
     const onSubmit = (values: FormValues) => {
@@ -43,7 +43,7 @@ export const EditAccountSheet = () => {
     const isLoading = accountQuery.isLoading
     const isPending = updateMutation.isPending || deleteMutation.isPending
 
-    const onDelete = async() => {
+    const onDelete = async () => {
         const ok = await confirm()
         if (ok) {
             deleteMutation.mutate(undefined, {
@@ -61,10 +61,10 @@ export const EditAccountSheet = () => {
                 <SheetContent className="space-y-4">
                     <SheetHeader>
                         <SheetTitle>
-                            Edit Account
+                            Edit Transaction
                         </SheetTitle>
                         <SheetDescription>
-                            Edit an existing account
+                            Edit an existing transaction
                         </SheetDescription>
                     </SheetHeader>
                     {
@@ -73,12 +73,13 @@ export const EditAccountSheet = () => {
                                 <Loader2 className="size-4 text-muted-foreground animate-spin" />
                             </div>
                         ) : (
-                            <AccountForm
-                                id={id}
-                                onSubmit={onSubmit}
-                                onDelete={onDelete}
-                                disabled={isPending}
-                                defaultValues={defaultValues} />
+                            "TODO: Create a Trans form"
+                            // <TransactionForm
+                            //     id={id}
+                            //     onSubmit={onSubmit}
+                            //     onDelete={onDelete}
+                            //     disabled={isPending}
+                            //     defaultValues={defaultValues} />
                         )
                     }
 

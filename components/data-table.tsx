@@ -46,7 +46,7 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
     columns,
     data,
-    filterKey,
+    filterKey, 
     onDelete,
     disabled
 }: DataTableProps<TData, TValue>) {
