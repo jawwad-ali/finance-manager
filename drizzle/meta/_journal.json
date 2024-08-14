@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1722433875372,
-      "tag": "0000_famous_living_mummy",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1722436369544,
-      "tag": "0001_safe_thundra",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1722638817837,
-      "tag": "0002_black_jack_flag",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1722976710584,
-      "tag": "0003_smart_garia",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1723122171324,
-      "tag": "0004_sour_living_lightning",
+      "when": 1723637930690,
+      "tag": "0000_crazy_amphibian",
       "breakpoints": true
     }
   ]

@@ -1,3 +1,17 @@
+CREATE TABLE IF NOT EXISTS "accounts" (
+	"id" text PRIMARY KEY NOT NULL,
+	"name" text NOT NULL,
+	"user_id" text NOT NULL,
+	"plaid_id" text
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "categories" (
+	"id" text PRIMARY KEY NOT NULL,
+	"name" text NOT NULL,
+	"user_id" text NOT NULL,
+	"plaid_id" text
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "transactions" (
 	"id" text PRIMARY KEY NOT NULL,
 	"amount" integer NOT NULL,
@@ -5,9 +19,7 @@ CREATE TABLE IF NOT EXISTS "transactions" (
 	"date" timestamp NOT NULL,
 	"notes" text,
 	"account_id" text NOT NULL,
-	"category_id" text,
-	"user_id" text NOT NULL,
-	"plaid_id" text
+	"category_id" text
 );
 --> statement-breakpoint
 DO $$ BEGIN

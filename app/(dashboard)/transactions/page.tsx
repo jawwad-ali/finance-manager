@@ -45,7 +45,7 @@ const TransactionsPage = () => {
             <Card className="border-none drop-shadow-sm">
                 <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
                     <CardTitle className="text-xl line-clamp-1">
-                        Transaction history
+                        Transaction history 
                     </CardTitle>
                     <Button size="sm" onClick={newTransaction.onOpen}>
                         <Plus className="size-4 mr-2" />
@@ -58,7 +58,7 @@ const TransactionsPage = () => {
                     <div className="container mx-auto py-10">
                         <DataTable
                             columns={columns} 
-                            data={transactions}
+                            data={transactions} 
                             filterKey="Name"
                             onDelete={(row) => {
                                 const ids = row.map((r) => r.original.id)

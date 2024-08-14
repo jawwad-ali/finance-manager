@@ -6,7 +6,7 @@ import { and, desc, eq, gte, inArray, lte, sql } from "drizzle-orm"
 import { zValidator } from "@hono/zod-validator"
 import { createId } from '@paralleldrive/cuid2';
 import { z } from "zod"
-import { parse, subDays } from "date-fns" 
+import { parse, subDays } from "date-fns"
 
 const app = new Hono()
     .get(
@@ -127,6 +127,7 @@ const app = new Hono()
             // Get current user info
             const auth = getAuth(c)
             const values = c.req.valid("json")
+            console.log("API VALUES", values)
 
             // Handling Error
             if (!auth?.userId) {
@@ -141,6 +142,7 @@ const app = new Hono()
                 .values({
                     id: createId(),
                     ...values,
+                    // userId: auth?.userId,
                 })
                 .returning()
 

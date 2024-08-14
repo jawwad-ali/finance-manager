@@ -3,7 +3,7 @@ import { client } from "@/lib/hono"
 import { useSearchParams } from "next/navigation";
 
 export const useGetTransactions = () => {
-    const params = useSearchParams() 
+    const params = useSearchParams()
     const from = params.get("from") || ""
     const to = params.get("to") || ""
     const accountId = params.get("accountId") || ""
@@ -16,7 +16,7 @@ export const useGetTransactions = () => {
                 query: {
                     from,
                     to,
-                    accountId 
+                    accountId
                 }
             })
 

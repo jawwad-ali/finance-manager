@@ -44,8 +44,8 @@ export const transactions = pgTable("transactions", {
         onDelete: "set null"
     }),
 
-    userId: text("user_id").notNull(),
-    plaidId: text("plaid_id"),
+    // userId: text("user_id").notNull(),
+    // plaidId: text("plaid_id"),
 });
 
 export const insertTransactionsSchema = createInsertSchema(transactions, {
