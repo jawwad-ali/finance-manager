@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Loader2, Plus } from "lucide-react"
 import { columns } from "./columns"
-import { DataTable } from "@/components/data-table"
+import { DataTable } from "@/components/data-table" 
 import { useGetAccounts } from "@/features/accounts/api/use-get-accounts"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useDeleteBulkAccounts } from "@/features/accounts/api/use-bulk-delete-accounts"
@@ -56,9 +56,9 @@ const AccountsPage = () => {
                 {/* Dislpaying the Table */}
                 <CardContent>
                     <div className="container mx-auto py-10">
-                        <DataTable
+                        <DataTable 
                             columns={columns}
-                            data={accounts} 
+                            data={accounts}  
                             filterKey="Name"
                             onDelete={(row) => {
                                 const ids = row.map((r) => r.original.id)

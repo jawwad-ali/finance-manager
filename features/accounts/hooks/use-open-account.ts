@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-type UseOpenAccount = {
+type UseOpenAccount = { 
     id?: string
     isOpen: boolean,
     onOpen: (id: string) => void,

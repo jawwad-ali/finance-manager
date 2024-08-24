@@ -12,11 +12,10 @@ export const useEditTransaction = (id?: string) => {
         ResponseType,
         Error,
         RequestType
-    >({
-        mutationFn: async (json) => {
+    >({ 
+        mutationFn: async (json) => { 
             const response = await client.api.transactions[":id"]["$patch"]({ param: { id }, json })
             return await response.json()
-
         },
 
         onSuccess: () => {
@@ -24,15 +23,15 @@ export const useEditTransaction = (id?: string) => {
             queryClient.invalidateQueries({
                 queryKey: ["transaction", { id }]
             }),
-                queryClient.invalidateQueries({
-                    queryKey: ["transactions"]
-                })
-
+            queryClient.invalidateQueries({
+                queryKey: ["transactions"]
+            }) 
         },
         onError: (error) => {
             toast.error("Error updating transaction")
             console.error(error)
         },
+        
     })
     return mutation
 }

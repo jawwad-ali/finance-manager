@@ -31,19 +31,21 @@ type Props = {
     id?: string
     defaultValues?: FormValues
     disabled?: boolean
-    accountOptions: { label: string, value: string }[]
-    categoryOptions: { label: string, value: string }[]
+    accountOptions?: { label: string, value: string }[]
+    categoryOptions?: { label: string, value: string }[]
     onSubmit: (values: ApiFormValues) => void
     onDelete?: () => void
-    onCreateAccount: (name: string) => void
-    onCreateCategory: (name: string) => void
+    onCreateAccount?: (name: string) => void
+    onCreateCategory?: (name: string) => void
 }
 
 const TransactionForm = ({ id, defaultValues, onSubmit, onDelete, disabled, accountOptions, categoryOptions, onCreateAccount, onCreateCategory }: Props) => {
 
+    console.log("defaultValues", defaultValues)
+
     const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
-        defaultValues: defaultValues 
+        defaultValues: defaultValues
     })
 
     const handleSubmit = (values: FormValues) => {
@@ -62,6 +64,7 @@ const TransactionForm = ({ id, defaultValues, onSubmit, onDelete, disabled, acco
 
     return (
         <Form {...form}>
+            {id}
             <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4 pt-4">
                 <FormField
                     name="date"
@@ -91,7 +94,7 @@ const TransactionForm = ({ id, defaultValues, onSubmit, onDelete, disabled, acco
                         <>
                             <FormItem>
                                 <FormLabel>
-                                    Name
+                                    Account Name
                                 </FormLabel>
                                 <FormControl>
                                     <Select
@@ -194,8 +197,9 @@ const TransactionForm = ({ id, defaultValues, onSubmit, onDelete, disabled, acco
                 />
 
                 <Button className="w-full" disabled={disabled}>
-                    {id ? "Save Changes" : "Create New Account"}
+                    {id ? "Save Changes" : "Create New Transaction"}
                 </Button>
+
                 {
                     !!id &&
                     <Button
@@ -215,5 +219,3 @@ const TransactionForm = ({ id, defaultValues, onSubmit, onDelete, disabled, acco
 }
 
 export default TransactionForm
-
-// 6.54.57

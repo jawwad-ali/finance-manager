@@ -11,12 +11,12 @@ import { useDeleteAccount } from "../api/use-delete-account"
 import UseConfirm from "@/hooks/use-confirm"
 
 const formSchema = insertAccountsSchema.pick({
-    name: true
+    name: true 
 })
 
 type FormValues = z.input<typeof formSchema>
 
-export const EditAccountSheet = () => {
+export const EditAccountSheet = () => { 
     const { isOpen, onClose, id } = useOpenAccount()
     const [ConfirmationDialog, confirm] = UseConfirm("Are you sure?", "You are about to delete")
 
@@ -75,7 +75,7 @@ export const EditAccountSheet = () => {
                         ) : (
                             <AccountForm
                                 id={id}
-                                onSubmit={onSubmit}
+                                onSubmit={onSubmit} 
                                 onDelete={onDelete}
                                 disabled={isPending}
                                 defaultValues={defaultValues} />

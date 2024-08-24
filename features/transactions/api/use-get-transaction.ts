@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { client } from "@/lib/hono"
 
 export const useGetTransaction = (id?: string) => {
-    const query = useQuery({
+    const query = useQuery({ 
         enabled: !!id,
         queryKey: ['transaction', { id }],
         queryFn: async () => {
@@ -17,7 +17,7 @@ export const useGetTransaction = (id?: string) => {
             }
 
             const { data } = await res.json()
-            return data
+            return data 
         }
     })
     return query

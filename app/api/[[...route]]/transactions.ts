@@ -266,7 +266,8 @@ const app = new Hono()
                     .innerJoin(accounts, eq(transactions.accountId, accounts.id))
                     .where(
                         and(
-                            eq(accounts.userId, auth.userId)
+                            eq(accounts.userId, auth.userId),
+                            eq(transactions.id, id) // Ensure we are filtering by the specific transaction ID
                         )
                     )
             )
@@ -318,14 +319,15 @@ const app = new Hono()
                     .innerJoin(accounts, eq(transactions.accountId, accounts.id))
                     .where(
                         and(
-                            eq(accounts.userId, auth.userId)
+                            eq(accounts.userId, auth.userId),
+                            eq(transactions.id, id) // Ensure we are filtering by the specific transaction ID
                         )
                     )
             )
 
             const [data] = await db
                 .with(transactionsToDelete)
-                .delete(transactions)
+                .delete(transactions) 
                 .where(
                     inArray(transactions.id, sql`(select id from ${transactionsToDelete})`)
                 )

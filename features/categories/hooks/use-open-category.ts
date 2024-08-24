@@ -2,7 +2,7 @@ import { create } from "zustand"
 
 type UseOpenCategory = {
     id?: string
-    isOpen: boolean,
+    isOpen: boolean, 
     onOpen: (id: string) => void,
     onClose: () => void,
 }

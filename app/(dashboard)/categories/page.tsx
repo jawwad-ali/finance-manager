@@ -9,14 +9,14 @@ import { useGetCategories } from "@/features/categories/api/use-get-categories"
 import { useNewCategory } from "@/features/categories/hooks/use-new-category"
 import { useDeleteBulkCategories } from "@/features/categories/api/use-bulk-delete-categories"
 
-const CategoriesPage = () => {
+const CategoriesPage = () => { 
     // Handle New category.
     const newCategory = useNewCategory()
 
     //Reteriving all categories
     const categoriesQuery = useGetCategories()
     const categories = categoriesQuery.data || []
-
+ 
     // Deleting Bulk categories
     const deleteCategories = useDeleteBulkCategories()
 
@@ -57,7 +57,7 @@ const CategoriesPage = () => {
                 <CardContent>
                     <div className="container mx-auto py-10">
                         <DataTable
-                            columns={columns}
+                            columns={columns} 
                             data={categories}
                             filterKey="Name"
                             onDelete={(row) => {

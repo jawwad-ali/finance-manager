@@ -12,7 +12,7 @@ export const useDeleteAccount = (id?: string) => {
         Error
     >({
         mutationFn: async (json) => {
-            const response = await client.api.accounts[":id"]["$delete"]({ param: { id }})
+            const response = await client.api.accounts[":id"]["$delete"]({ param: { id } })
             return await response.json()
 
         },
@@ -24,6 +24,9 @@ export const useDeleteAccount = (id?: string) => {
             }),
                 queryClient.invalidateQueries({
                     queryKey: ["accounts"]
+                }),
+                queryClient.invalidateQueries({
+                    queryKey: ["transactions"]
                 })
 
         },

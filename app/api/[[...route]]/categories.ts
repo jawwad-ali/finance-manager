@@ -8,7 +8,7 @@ import { createId } from '@paralleldrive/cuid2';
 import { z } from "zod"
 
 const app = new Hono()
-    .get(
+    .get( 
         "/",
         clerkMiddleware(),
         async (c) => {
@@ -64,7 +64,7 @@ const app = new Hono()
                         eq(categories.userId, auth.userId),
                         eq(categories.id, id)
                     )
-                )
+                ) 
             if (!data) {
                 return c.json({ error: "Not Found" }, 404)
             }

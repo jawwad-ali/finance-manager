@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { insertCategorySchema } from "@/db/schema"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form"
 
 const formSchema = insertCategorySchema.pick({ name: true })
 
@@ -20,7 +20,8 @@ type Props = {
 }
 
 const CategoryForm = ({ id, defaultValues, onSubmit, onDelete, disabled }: Props) => {
-    const form = useForm<FormValues>({ 
+
+    const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: defaultValues
     })

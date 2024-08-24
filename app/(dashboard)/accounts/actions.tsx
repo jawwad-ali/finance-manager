@@ -6,7 +6,7 @@ import { useDeleteAccount } from "@/features/accounts/api/use-delete-account"
 import { useOpenAccount } from "@/features/accounts/hooks/use-open-account"
 import UseConfirm from "@/hooks/use-confirm"
 import { Edit, MoreHorizontal, Trash } from "lucide-react"
-
+ 
 type Props = {
     id: string
 }
@@ -19,7 +19,7 @@ const Actions = ({ id }: Props) => {
         const ok = await confirm()
         if (ok) {
             deleteMutation.mutate()
-        }
+        } 
     }
 
     const [ConfirmationDialog, confirm] = UseConfirm("Are you sure?", "You are about to delete")

@@ -13,7 +13,7 @@ const UseConfirm = (
     const confirm = () => new Promise((resolve, reject) => {
         setPromise({ resolve })
     })
-
+ 
     const handleClose = () => {
         setPromise(null)
     }

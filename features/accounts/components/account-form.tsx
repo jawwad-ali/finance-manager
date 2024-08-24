@@ -16,7 +16,7 @@ type Props = {
     defaultValues?: FormValues
     onSubmit: (values: FormValues) => void
     onDelete?: () => void
-    disabled?: boolean
+    disabled?: boolean 
 }
 
 const AccountForm = ({ id, defaultValues, onSubmit, onDelete, disabled }: Props) => {
@@ -30,7 +30,7 @@ const AccountForm = ({ id, defaultValues, onSubmit, onDelete, disabled }: Props)
     }
 
     const handleDelete = () => {
-        onDelete?.()
+        onDelete?.() 
     }
 
     return (

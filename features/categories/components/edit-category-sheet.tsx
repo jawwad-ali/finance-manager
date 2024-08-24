@@ -6,7 +6,7 @@ import CategoryForm from "@/features/categories/components/category-form"
 import { useOpenCategory } from "@/features/categories/hooks/use-open-category"
 import { useGetCategory } from "@/features/categories/api/use-get-category"
 import { useEditCategory } from "@/features/categories/api/use-edit-category"
-import { useDeleteCategories } from "@/features/categories/api/use-delete-category"
+import { useDeleteCategory } from "@/features/categories/api/use-delete-category"
 import UseConfirm from "@/hooks/use-confirm"
 
 const formSchema = insertCategorySchema.pick({
@@ -21,9 +21,9 @@ export const EditCategorySheet = () => {
 
     const categoryQuery = useGetCategory(id)
     const updateMutation = useEditCategory(id)
-    const deleteMutation = useDeleteCategories(id)
+    const deleteMutation = useDeleteCategory(id) 
 
-    // Gook To Add new Category
+    // Gook To Add new Category 
     const onSubmit = (values: FormValues) => {
         updateMutation.mutate(values, {
             onSuccess: () => {

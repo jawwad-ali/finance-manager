@@ -1,30 +1,56 @@
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet"
-import { accounts, insertAccountsSchema } from "@/db/schema"
+import { insertTransactionsSchema } from "@/db/schema"
 import { z } from "zod"
-import AccountForm from "@/features/accounts/components/account-form"
 
-import { useOpenAccount } from "@/features/accounts/hooks/use-open-account"
-import { useGetAccount } from "@/features/accounts/api/use-get-account"
 import { Loader2 } from "lucide-react"
 import { useEditTransaction } from "../api/use-edit-transaction"
 import { useDeleteTransaction } from "../api/use-delete-transaction"
 import UseConfirm from "@/hooks/use-confirm"
+import { useOpenTransaction } from "../hooks/use-open-transaction"
+import { useGetTransaction } from "../api/use-get-transaction"
+import TransactionForm from "./transaction-form"
 
-const formSchema = insertAccountsSchema.pick({
-    name: true
+import { useGetCategories } from "@/features/categories/api/use-get-categories"
+import { useCreateCategory } from "@/features/categories/api/use-create-category"
+import { useGetAccounts } from "@/features/accounts/api/use-get-accounts"
+import { useCreateAccount } from "@/features/accounts/api/use-create-account"
+
+
+const formSchema = insertTransactionsSchema.omit({
+    id: true
 })
 
 type FormValues = z.input<typeof formSchema>
 
 export const EditTransactionSheet = () => {
-    const { isOpen, onClose, id } = useOpenAccount()
+    const { isOpen, onClose, id } = useOpenTransaction()
+    console.log("transId", id)
     const [ConfirmationDialog, confirm] = UseConfirm("Are you sure?", "You are about to delete")
 
-    const accountQuery = useGetAccount(id)
+    const transactionQuery = useGetTransaction(id)
     const updateMutation = useEditTransaction(id)
     const deleteMutation = useDeleteTransaction(id)
 
-    // Gook To Add new Account
+    // Categories
+    const categoryQuery = useGetCategories()
+    const categoryMutation = useCreateCategory()
+
+
+    const categoriesOption = (categoryQuery.data ?? []).map((category) => ({
+        label: category.name,
+        value: category.id
+    }))
+
+    // Account
+    const accountQuery = useGetAccounts()
+    const accountMutation = useCreateAccount()
+
+    const AccountOption = (accountQuery.data ?? []).map((account) => ({
+        label: account.name,
+        value: account.id
+    }))
+
+    // Gook To Add new transaction
     const onSubmit = (values: FormValues) => {
         updateMutation.mutate(values, {
             onSuccess: () => {
@@ -34,14 +60,30 @@ export const EditTransactionSheet = () => {
     }
 
     // Value in the input filed when edit button is clicked
-    const defaultValues = accountQuery.data ? {
-        name: accountQuery.data.name
+    const defaultValues = transactionQuery.data ? {
+        accountId: transactionQuery.data.accountId,
+        categoryId: transactionQuery.data.categoryId,
+        amount: transactionQuery.data.amount.toString(),
+        payee: transactionQuery.data.payee,
+        date: transactionQuery.data.date ? new Date(transactionQuery.data.date) : new Date(),
+        notes: transactionQuery.data.notes,
     } : {
-        name: ""
+        accountId: "",
+        categoryId: "",
+        payee: "",
+        notes: "",
+        date: new Date(),
+        amount: "",
     }
 
-    const isLoading = accountQuery.isLoading
-    const isPending = updateMutation.isPending || deleteMutation.isPending
+    const isLoading = transactionQuery.isLoading || categoryQuery.isLoading || accountQuery.isLoading
+
+    const isPending =
+        updateMutation.isPending ||
+        deleteMutation.isPending ||
+        transactionQuery.isPending ||
+        categoryMutation.isPending ||
+        accountMutation.isPending;
 
     const onDelete = async () => {
         const ok = await confirm()
@@ -73,13 +115,18 @@ export const EditTransactionSheet = () => {
                                 <Loader2 className="size-4 text-muted-foreground animate-spin" />
                             </div>
                         ) : (
-                            "TODO: Create a Trans form"
-                            // <TransactionForm
-                            //     id={id}
-                            //     onSubmit={onSubmit}
-                            //     onDelete={onDelete}
-                            //     disabled={isPending}
-                            //     defaultValues={defaultValues} />
+                            <TransactionForm
+                                id={id}
+                                onSubmit={onSubmit}
+                                onDelete={onDelete}
+                                defaultValues={defaultValues}
+                                disabled={isPending}
+                                categoryOptions={categoriesOption}
+                                // onCreateCategory={onCreateCategory}
+                                accountOptions={AccountOption}
+                            // onCreateAccount={onCreateAccount}
+
+                            />
                         )
                     }
 

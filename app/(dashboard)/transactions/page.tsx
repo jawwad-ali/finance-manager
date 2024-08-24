@@ -9,7 +9,7 @@ import { useNewTransaction } from "@/features/transactions/hooks/use-new-transac
 import { useGetTransactions } from "@/features/transactions/api/use-get-transactions"
 import { useDeleteBulkTransactions } from "@/features/transactions/api/use-bulk-delete-transactions"
 
-const TransactionsPage = () => {
+const TransactionsPage = () => { 
     // Handle New Transaction.
     const newTransaction = useNewTransaction()
 
@@ -56,13 +56,13 @@ const TransactionsPage = () => {
                 {/* Dislpaying the Table */}
                 <CardContent> 
                     <div className="container mx-auto py-10">
-                        <DataTable
+                        <DataTable  
                             columns={columns} 
-                            data={transactions} 
-                            filterKey="Name"
+                            data={transactions}   
+                            filterKey="payee"
                             onDelete={(row) => {
                                 const ids = row.map((r) => r.original.id)
-                                deleteTransactions.mutate({ ids })
+                                deleteTransactions.mutate({ ids }) 
                             }}
                             disabled={isDisabled}
                         />
