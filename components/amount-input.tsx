@@ -19,7 +19,7 @@ type Props = {
 const AmountInput = ({ onChange, value, disabled, placeholder }: Props) => {
     const parsedValue = parseFloat(value)
     const Income = parsedValue > 0
-    const Expense = parsedValue < 0
+    const Expense = parsedValue < 0 
 
     // If user wants to make income a Expense or vice-versa 
     const onReverseValue = () => {

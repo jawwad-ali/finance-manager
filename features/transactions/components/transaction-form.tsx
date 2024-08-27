@@ -41,9 +41,7 @@ type Props = {
 
 const TransactionForm = ({ id, defaultValues, onSubmit, onDelete, disabled, accountOptions, categoryOptions, onCreateAccount, onCreateCategory }: Props) => {
 
-    console.log("defaultValues", defaultValues)
-
-    const form = useForm<FormValues>({
+    const form = useForm<FormValues>({ 
         resolver: zodResolver(formSchema),
         defaultValues: defaultValues
     })
