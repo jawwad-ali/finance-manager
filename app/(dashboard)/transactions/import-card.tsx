@@ -82,7 +82,6 @@ const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
                 return acc
             }, {})
         })
-        console.log({ arrayofData })
 
         const formattedData = arrayofData.map((item) => ({
             ...item,

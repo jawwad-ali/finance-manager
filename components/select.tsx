@@ -11,7 +11,7 @@ type Props = {
     value?: string | null | undefined
     disabled?: boolean
     placeholder?: string
-}
+} 
 
 export const Select = ({ onChange, onCreate, options, value, disabled, placeholder }: Props) => {
 

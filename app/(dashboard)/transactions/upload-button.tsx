@@ -15,8 +15,8 @@ const UploadButton = ({ onUpload }: Props) => {
                 {({ getRootProps }: any) => (
                     <Button className="w-full lg:w-auto" {...getRootProps()} size="sm" >
                         <Upload className="size-4 mr-2" />
-                        Import CSV
-                    </Button>
+                        Import CSV 
+                    </Button> 
                 )}
             </CSVReader>
         </div>

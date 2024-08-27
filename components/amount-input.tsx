@@ -31,7 +31,7 @@ const AmountInput = ({ onChange, value, disabled, placeholder }: Props) => {
     return (
         <div className="relative">
             <TooltipProvider>
-                <Tooltip deplayDuration={100}>
+                <Tooltip delayDuration={100}>
                     <TooltipTrigger asChild>
                         <button type="button" onClick={onReverseValue}
                             className={cn(

@@ -24,7 +24,6 @@ type FormValues = z.input<typeof formSchema>
 
 export const EditTransactionSheet = () => {
     const { isOpen, onClose, id } = useOpenTransaction()
-    console.log("transId", id)
     const [ConfirmationDialog, confirm] = UseConfirm("Are you sure?", "You are about to delete")
 
     const transactionQuery = useGetTransaction(id)

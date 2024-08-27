@@ -11,6 +11,10 @@ import { useDeleteBulkTransactions } from "@/features/transactions/api/use-bulk-
 import { useState } from "react"
 import UploadButton from "./upload-button"
 import ImportCard from "./import-card"
+import { transactions as transactionSchema } from "@/db/schema"
+import UseSelectAccount from "@/features/accounts/hooks/use-select-account"
+import { toast } from "sonner"
+import { useCreateBulkTransactions } from "@/features/transactions/api/use-bulk-create-transactions"
 
 enum VARIANTS {
     LIST = "LIST",
@@ -24,12 +28,13 @@ const INITIAL_IMPORT_RESULTS = {
 }
 
 const TransactionsPage = () => {
+    const [AccountDialog, confirm] = UseSelectAccount()
     const [variants, setVariants] = useState<VARIANTS>(VARIANTS.LIST)
     const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS)
 
+
     // CSV Upload
     const onUpload = (results: typeof INITIAL_IMPORT_RESULTS) => {
-        console.log(results)
         setImportResults(results)
         setVariants(VARIANTS.IMPORT)
     }
@@ -53,6 +58,27 @@ const TransactionsPage = () => {
     const isDisabled =
         transactionsQuery.isLoading || deleteTransactions.isPending
 
+    const bulkCreateTransactions = useCreateBulkTransactions()
+
+    // Function that Inserts CSV to the database
+    const onSubmitImport = async (values: typeof transactionSchema.$inferInsert[]) => {
+        const accountId = await confirm()
+        if (!accountId) return toast.error("Please select an account")
+
+        const data = values.map((value) => ({
+            ...value,
+            // @ts-ignore
+            accountId: accountId as string
+        }))
+
+        // Calling the bulk Create Transaction API.
+        bulkCreateTransactions.mutate(data, {
+            onSuccess: () => {
+                onCancelImport()
+            }
+        })
+    }
+
     // Loading Component
     if (transactionsQuery.isLoading) {
         return (
@@ -71,7 +97,13 @@ const TransactionsPage = () => {
 
     // if CSV file is Uploaded
     if (variants === VARIANTS.IMPORT) {
-        return <ImportCard data={importResults.data} onSubmit={() => { }} onCancel={onCancelImport} />
+        return (
+            <>
+                <AccountDialog />
+                <ImportCard data={importResults.data} onSubmit={onSubmitImport} onCancel={onCancelImport} />
+            </>
+
+        )
     }
 
     return (

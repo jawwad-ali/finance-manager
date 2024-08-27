@@ -9,8 +9,8 @@ type RequestType = InferRequestType<typeof client.api.transactions["bulk-create"
 export const useCreateBulkTransactions = () => {
     const queryClient = useQueryClient()
     const mutation = useMutation<
-        ResponseType,
-        Error,
+        ResponseType, 
+        Error, 
         RequestType
     >({
         mutationFn: async (json) => {
