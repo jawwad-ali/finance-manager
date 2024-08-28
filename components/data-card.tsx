@@ -57,7 +57,7 @@ const DataCard = ({ icon: Icon, value = 0, dateRange, title, percentageChange = 
 
                     <CardTitle className="text-2xl line-clamp-1">
                         {title}
-                    </CardTitle>
+                    </CardTitle> 
                     <CardDescription className="line-clamp-1">
                         {dateRange}
                     </CardDescription>
@@ -69,10 +69,10 @@ const DataCard = ({ icon: Icon, value = 0, dateRange, title, percentageChange = 
 
             <CardContent>
                 <h1 className="break-all font-bold text-2xl mb-2 line-clamp-1">
-                    <CountUp
+                    $ <CountUp
                         preserveValue
                         start={0}
-                        end={value}
+                        end={value} 
                         decimals={2}
                         decimalPlaces={2}
                     // formattingFn={formatCurrency}
@@ -81,7 +81,7 @@ const DataCard = ({ icon: Icon, value = 0, dateRange, title, percentageChange = 
                 <p className={cn("text-muted-foreground text-sm line-clamp-1",
                     percentageChange > 0 && "text-emerald-500",
                     percentageChange < 0 && "text-rose-500s")}>
-                    {formatPercentage(percentageChange)} from last period
+                    {formatPercentage(percentageChange, { addPrefix: true })} from last period
                 </p>
             </CardContent>
         </Card >

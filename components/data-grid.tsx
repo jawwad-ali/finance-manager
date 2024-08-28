@@ -3,7 +3,6 @@
 import { useGetSummary } from "@/features/summary/api/use-get-summary"
 import { formatDateRange } from "@/lib/utils"
 import { useSearchParams } from "next/navigation"
-// import PiggyBank from "react-icons"
 import { FaArrowTrendDown, FaArrowTrendUp, FaPiggyBank } from "react-icons/fa6";
 import DataCard from "./data-card"
 import { Card, CardContent, CardHeader } from "./ui/card";
@@ -23,7 +22,7 @@ const DataGrid = () => {
                 <DataLoading />
                 <DataLoading />
                 <DataLoading />
-            </div> 
+            </div>
         )
     }
 
@@ -59,7 +58,7 @@ const DataGrid = () => {
 
 export default DataGrid
 
-export const DataLoading = () => {
+export const DataLoading = () => { 
     return (
         <Card className="border-none drop-shadow-sm h-[192px]">
             <CardHeader className="flex flex-row items-center justify-between gap-x-4">

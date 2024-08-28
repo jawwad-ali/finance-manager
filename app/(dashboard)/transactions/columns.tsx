@@ -112,7 +112,7 @@ export const columns: ColumnDef<ResponseType>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Amount
+          Amount 
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
