@@ -179,7 +179,7 @@ const app = new Hono()
                 )
                 .returning()
             if (!data) {
-                return c.json({ error: "Not Found"}, 404)
+                return c.json({ error: "Not Found" }, 404)
             }
             return c.json({ data })
         }
@@ -218,7 +218,7 @@ const app = new Hono()
                 )
                 .returning()
             if (!data) {
-                return c.json({ error: "Not Found"}, 404)
+                return c.json({ error: "Not Found" }, 404)
             }
             return c.json({ data })
         }

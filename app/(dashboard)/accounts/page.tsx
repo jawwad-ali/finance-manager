@@ -4,24 +4,24 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Loader2, Plus } from "lucide-react"
 import { columns } from "./columns"
-import { DataTable } from "@/components/data-table" 
+import { DataTable } from "@/components/data-table"
 import { useGetAccounts } from "@/features/accounts/api/use-get-accounts"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useDeleteBulkAccounts } from "@/features/accounts/api/use-bulk-delete-accounts"
 
 const AccountsPage = () => {
-    // Handle New Acc.
+    // Handle New Acc.   
     const newAccount = useNewAccount()
 
-    //Reteriving all accounts
+    //Reteriving all accounts 
     const accountsQuery = useGetAccounts()
     const accounts = accountsQuery.data || []
 
     // Deleting Bulk Accounts
     const deleteAccounts = useDeleteBulkAccounts()
-    
+
     // Disable del button while accounts are deleting
-    const isDisabled = 
+    const isDisabled =
         accountsQuery.isLoading || deleteAccounts.isPending
 
     // Loading Component
@@ -34,6 +34,7 @@ const AccountsPage = () => {
                     </CardHeader>
                     <div className="h-[500px] flex items-center justify-center">
                         <Loader2 className="size-8 text-slate-300 animate-spin" />
+                        Please wait...
                     </div>
                 </Card>
             </div>
@@ -56,14 +57,14 @@ const AccountsPage = () => {
                 {/* Dislpaying the Table */}
                 <CardContent>
                     <div className="container mx-auto py-10">
-                        <DataTable 
+                        <DataTable
                             columns={columns}
-                            data={accounts}  
+                            data={accounts}
                             filterKey="Name"
                             onDelete={(row) => {
                                 const ids = row.map((r) => r.original.id)
-                                deleteAccounts.mutate({ids})
-                            }} 
+                                deleteAccounts.mutate({ ids })
+                            }}
                             disabled={isDisabled}
                         />
                     </div>

@@ -11,7 +11,7 @@ export const useGetAccounts = () => {
             //Handling Error 
             if (!res.ok) {
                 throw new Error('Failed to fetch accounts')
-            }
+            } 
 
             const { data } = await res.json()
             return data

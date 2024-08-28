@@ -9,12 +9,6 @@ import { accounts, categories, transactions } from "@/db/schema";
 import { calculatePercentageChange, fillMissingDays } from "@/lib/utils";
 
 const app = new Hono()
-    // .get(
-    //     "/",
-    //     async (c) => {
-    //         return c.json({ hello: "rowld" })
-    //     }
-    // )
     .get("/",
         clerkMiddleware(),
         zValidator(
@@ -80,7 +74,7 @@ const app = new Hono()
             }
 
             const [currentPeriod] = await fetchFinancialData(auth.userId, startDate, endDate);
-            const [lastPeriod] = await fetchFinancialData(auth.userId, startDate, endDate);
+            const [lastPeriod] = await fetchFinancialData(auth.userId, lastPeriodStartDate, lastPeriodEndDate);
 
             const incomeChange = calculatePercentageChange(
                 currentPeriod.income,
