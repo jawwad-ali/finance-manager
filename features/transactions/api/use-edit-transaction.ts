@@ -25,6 +25,9 @@ export const useEditTransaction = (id?: string) => {
             }),
             queryClient.invalidateQueries({
                 queryKey: ["transactions"]
+            }) ,
+            queryClient.invalidateQueries({
+                queryKey: ["summary"]
             }) 
         },
         onError: (error) => {

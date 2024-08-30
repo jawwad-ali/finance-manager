@@ -9,8 +9,8 @@ type RequestType = InferRequestType<typeof client.api.transactions["bulk-create"
 export const useCreateBulkTransactions = () => {
     const queryClient = useQueryClient()
     const mutation = useMutation<
-        ResponseType, 
-        Error, 
+        ResponseType,
+        Error,
         RequestType
     >({
         mutationFn: async (json) => {
@@ -22,8 +22,10 @@ export const useCreateBulkTransactions = () => {
             toast.success("Transactions Created")
             queryClient.invalidateQueries({
                 queryKey: ["transactions"]
-                // Also invalidate Summary
-            })
+            }),
+                queryClient.invalidateQueries({
+                    queryKey: ["summary"]
+                })
         },
         onError: (error) => {
             toast.error("Failed to Create Transactions")

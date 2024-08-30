@@ -9,7 +9,7 @@ export const useGetSummary = () => {
     const to = params.get("to") || ""
     const accountId = params.get("accountId") || "" 
 
-    const query = useQuery({
+    const query = useQuery({ 
         queryKey: ['summary', { from, to, accountId }],
         queryFn: async () => {
             // Getting it from query parameters

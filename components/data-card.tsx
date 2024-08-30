@@ -47,7 +47,7 @@ interface DataCardProps extends BoxVariant, IconVariant {
     dateRange: string
     value?: number
     percentageChange?: number
-}
+} 
 
 const DataCard = ({ icon: Icon, value = 0, dateRange, title, percentageChange = 0, variant }: DataCardProps) => {
     return (
@@ -57,7 +57,7 @@ const DataCard = ({ icon: Icon, value = 0, dateRange, title, percentageChange = 
 
                     <CardTitle className="text-2xl line-clamp-1">
                         {title}
-                    </CardTitle> 
+                    </CardTitle>
                     <CardDescription className="line-clamp-1">
                         {dateRange}
                     </CardDescription>
@@ -72,7 +72,7 @@ const DataCard = ({ icon: Icon, value = 0, dateRange, title, percentageChange = 
                     $ <CountUp
                         preserveValue
                         start={0}
-                        end={value} 
+                        end={value}
                         decimals={2}
                         decimalPlaces={2}
                     // formattingFn={formatCurrency}
